@@ -61,7 +61,7 @@ public class CompanyServiceImpl implements CompanyService {
                         .orElseGet(() -> {
                             Department newDepartment = new Department();
                             newDepartment.setName(name);
-                            newDepartment.setCompany(company); // Przypisanie relacji
+                            newDepartment.setCompany(company);
                             return newDepartment;
                         }))
                 .collect(Collectors.toList());
