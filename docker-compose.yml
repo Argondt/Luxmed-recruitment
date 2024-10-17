@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:17.0-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: luxmed
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  luxmed-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8180"
+    environment:
+      - DATASOURCE_URL=jdbc:postgresql://postgres:5432/luxmed
+      - DATASOURCE_USERNAME=admin
+      - DATASOURCE_PASSWORD=admin
+    restart: always
+volumes:
+  postgres:
+    driver: local
